@@ -5,7 +5,7 @@
     <artifactId>JSP_Servlet_MySQL</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JSP_Servlet_MySQL</name>
+    <name>JSP_Servlet_PostgreSQL</name>
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

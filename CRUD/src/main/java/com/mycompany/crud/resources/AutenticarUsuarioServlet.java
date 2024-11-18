@@ -39,6 +39,7 @@ public class AutenticarUsuarioServlet extends HttpServlet {
         String password = "admin";
         
         try {
+            //Driver jdbc (pode ter mais de um)
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(AutenticarUsuarioServlet.class.getName()).log(Level.SEVERE, null, ex);
