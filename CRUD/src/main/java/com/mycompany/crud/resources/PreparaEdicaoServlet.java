@@ -1,10 +1,11 @@
+package com.mycompany.crud.resources;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller.crud;
 
-import model.usuario.Usuario;
+import com.mycompany.crud.resources.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -24,8 +25,8 @@ import java.util.List;
  *
  * @author caioc
  */
-@WebServlet(name = "ListarUsuarioServlet", urlPatterns = {"/home"})
-public class ListarUsuarioServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/PreparaEdicaoServlet"})
+public class PreparaEdicaoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,16 +37,12 @@ public class ListarUsuarioServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        // Verificar se o usuário está autenticado
-        String usuarioNome = (String) request.getSession().getAttribute("usuarioNome");
-        if (usuarioNome == null) {
-            // Se o usuário não estiver autenticado, redireciona para o login
-            response.sendRedirect("index.jsp");
-            return;
-        }
+        String idString = request.getParameter("id");
+        int id = Integer.parseInt(idString);
         
         String url = "jdbc:postgresql://localhost:5432/meu_banco";
         String user = "postgres";
@@ -54,43 +51,36 @@ public class ListarUsuarioServlet extends HttpServlet {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        
-        List<Usuario> usuarios = new ArrayList<>();
-        
+            
         try {
             Class.forName("org.postgresql.Driver");
             conn = DriverManager.getConnection(url, user, password);
             
-            // SQL para obter todos os registros de usuários
-            String sql = "SELECT id, nome, email FROM usuario";
+            String sql = "SELECT * FROM usuario WHERE id = ?";
             stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
             rs = stmt.executeQuery();
 
-            // Preencher a lista de usuários
-            while (rs.next()) {
-                Usuario usuario = new Usuario();
-                usuario.setId(rs.getInt("id"));
-                usuario.setNome(rs.getString("nome"));
-                usuario.setEmail(rs.getString("email"));
-                usuarios.add(usuario);
+            if (rs.next()) {
+                String nome = rs.getString("nome");
+                String email = rs.getString("email");
+                
+                request.setAttribute("id", id);
+                request.setAttribute("nome", nome);
+                request.setAttribute("email", email);
+                
+                request.getRequestDispatcher("edicao.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("home.jsp").forward(request, response);
             }
-
-            // Passando a lista de usuários para a JSP
-            request.setAttribute("usuarios", usuarios);
-            request.setAttribute("sucesso", "sucesso");
-            request.getRequestDispatcher("home.jsp").forward(request, response);
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (ServletException | IOException | ClassNotFoundException | SQLException e) {
         } finally {
             try {
                 if (rs != null) rs.close();
                 if (stmt != null) stmt.close();
                 if (conn != null) conn.close();
             } catch (SQLException e) {
-                e.printStackTrace();
             }
         }
-        
     }
 }
