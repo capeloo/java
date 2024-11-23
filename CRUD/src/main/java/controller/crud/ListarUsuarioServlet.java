@@ -24,7 +24,7 @@ import java.util.List;
  *
  * @author caioc
  */
-@WebServlet(name = "ListarUsuarioServlet", urlPatterns = {"/home"})
+@WebServlet(name = "ListarUsuarioServlet", urlPatterns = {"/listar"})
 public class ListarUsuarioServlet extends HttpServlet {
 
     /**
