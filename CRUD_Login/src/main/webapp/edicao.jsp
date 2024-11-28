@@ -1,9 +1,10 @@
 <%-- 
     Document   : edicao
-    Created on : 19 de nov. de 2024, 00:13:49
+    Created on : 28 de nov. de 2024, 00:24:08
     Author     : caioc
 --%>
 
+<%@page import="model.usuario.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,14 +17,17 @@
         <main>
             <form action="SalvarEdicaoUsuarioServlet" method="post">
                 <h1>Editar usuário</h1>
+                <%
+                    Usuario usuario = (Usuario)request.getAttribute("usuario");
+                %>
 
-                <input type="hidden" name="id" value="<%= request.getAttribute("id") %>">
+                <input type="hidden" name="id" value="<%= usuario.getId() %>">
 
                 <label for="nome">Nome</label> <br>
-                <input type="text" name="nome" id="nome" value="<%= request.getAttribute("nome") %>" placeholder="Seu nome" class="form_input" required>                
+                <input type="text" name="nome" id="nome" value="<%= usuario.getNome() %>" placeholder="Seu nome" class="form_input" required>                
                 
                 <label for="email">E-mail</label> <br>
-                <input type="email" name="email" id="email" value="<%= request.getAttribute("email") %>" placeholder="Seu e-mail" class="form_input" required> <br>
+                <input type="email" name="email" id="email" value="<%= usuario.getEmail() %>" placeholder="Seu e-mail" class="form_input" required> <br>
                 
                 <input type="submit" value="Salvar" id="btn_salvar">
                 

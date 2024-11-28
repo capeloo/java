@@ -57,7 +57,7 @@ public class UsuarioDAO {
             Class.forName(JDBC_DRIVER);
             try {
                 Connection con = DriverManager.getConnection(JDBC_URL, JDBC_USUARIO, JDBC_SENHA);
-                PreparedStatement pstmt = con.prepareStatement("SELECT id, nome, email FROM usuario");
+                PreparedStatement pstmt = con.prepareStatement("SELECT id, nome, email FROM usuario ORDER BY id");
                 try(ResultSet rs = pstmt.executeQuery()){
                     while(rs.next()){
                         Usuario usuario = new Usuario();
@@ -74,5 +74,88 @@ public class UsuarioDAO {
         } catch (ClassNotFoundException ex){}
         
     return usuarios;
+    }
+    
+    public int cadastrarUsuario(String nome, String email, String senha){
+        int res = 0;
+        try {
+            Class.forName(JDBC_DRIVER);
+            try {
+                Connection con = DriverManager.getConnection(JDBC_URL, JDBC_USUARIO, JDBC_SENHA);
+                String sql = "INSERT INTO usuario (nome, email, senha) VALUES (?, ?, ?);";
+                PreparedStatement pstmt = con.prepareStatement(sql);
+                pstmt.setString(1, nome);
+                pstmt.setString(2, email);
+                pstmt.setString(3, senha);
+                res = pstmt.executeUpdate();
+                pstmt.close();
+                con.close();
+            } catch (SQLException e){}
+        } catch (ClassNotFoundException ex){}
+        return res;
+    }
+    
+    public int deletarUsuario(int id){
+        int res = 0;
+        try {
+            Class.forName(JDBC_DRIVER);
+            try {
+                Connection con = DriverManager.getConnection(JDBC_URL, JDBC_USUARIO, JDBC_SENHA);
+                String sql = "DELETE FROM usuario WHERE id = ?";
+                PreparedStatement pstmt = con.prepareStatement(sql);
+                pstmt.setInt(1, id);
+                res = pstmt.executeUpdate();
+                pstmt.close();
+                con.close();
+            } catch (SQLException e){}
+        } catch (ClassNotFoundException ex){}
+        return res;
+    }
+    
+    public Usuario prepararEdicao(int id){
+        Usuario usuario = new Usuario();
+        try {
+            Class.forName(JDBC_DRIVER);
+            try {
+                Connection con = DriverManager.getConnection(JDBC_URL, JDBC_USUARIO, JDBC_SENHA);
+                String sql = "SELECT * FROM usuario WHERE id = ?";
+                PreparedStatement pstmt = con.prepareStatement(sql);
+                pstmt.setInt(1, id);
+                ResultSet rs = pstmt.executeQuery();
+            
+                if(rs.next()){
+                    String nome = rs.getString("nome");
+                    String email = rs.getString("email");
+                
+                    usuario.setId(id);
+                    usuario.setNome(nome);
+                    usuario.setEmail(email);
+                }
+            
+                rs.close();
+                pstmt.close();
+                con.close();
+            } catch (SQLException e){}
+        } catch (ClassNotFoundException ex){}
+    return usuario;
+    }
+    
+    public int salvarEdicao(String nome, String email, int id){
+        int res = 0;
+        try {
+            Class.forName(JDBC_DRIVER);
+            try {
+                Connection con = DriverManager.getConnection(JDBC_URL, JDBC_USUARIO, JDBC_SENHA);
+                String sql = "UPDATE usuario SET nome = ?, email = ? WHERE id = ?";
+                PreparedStatement pstmt = con.prepareStatement(sql);
+                pstmt.setString(1, nome);
+                pstmt.setString(2, email);
+                pstmt.setInt(3, id);
+                res = pstmt.executeUpdate();
+                pstmt.close();
+                con.close();
+            } catch (SQLException e){}
+        } catch (ClassNotFoundException ex){}
+        return res;
     }
 }

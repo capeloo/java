@@ -25,24 +25,22 @@ public class ListarUsuarioServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        // Verificar se o usuário está autenticado
-        //String usuarioNome = (String) request.getSession().getAttribute("usuarioNome");
- 
-        //if (usuarioNome == null) {
-            // Se o usuário não estiver autenticado, redireciona para o login
-        //    response.sendRedirect("index.jsp");
-        //    return;
-        //}
-        
-        // Entrada
+        //Verificar se o usuário está autenticado
         String usuarioNome = (String) request.getSession().getAttribute("usuarioNome");
+ 
+        if (usuarioNome == null) {
+            // Se o usuário não estiver autenticado, redireciona para o login
+            response.sendRedirect("index.jsp");
+            return;
+        }
+        //
         
         // Processamento
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         List<Usuario> lista = usuarioDAO.listarUsuario();
         
         // Saída
-        if(lista.isEmpty()){
+        if(!lista.isEmpty()){
             request.setAttribute("usuarios", lista);
             request.getRequestDispatcher("/home.jsp").forward(request, response);
         } else {

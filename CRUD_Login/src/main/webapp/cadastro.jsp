@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index
-    Created on : 18 de nov. de 2024, 03:39:20
+    Document   : cadastro
+    Created on : 27 de nov. de 2024, 23:31:31
     Author     : caioc
 --%>
 
@@ -27,6 +27,8 @@
                 <input type="password" name="senha" id="senha" placeholder="Sua senha" class="form_input" required> <br>
                 
                 <input type="submit" value="Cadastrar" id="btn_cadastrar">
+                
+                <div id="error"><%= request.getAttribute("erroCadastro") != null ? request.getAttribute("erroCadastro") : "" %></div>
                 
             </form>
         </main>
