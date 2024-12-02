@@ -10,4 +10,11 @@
         <maven.compiler.release>23</maven.compiler.release>
         <exec.mainClass>com.mycompany.ex02_jdbc_dao.Ex02_jdbc_dao</exec.mainClass>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.4</version>
+        </dependency>
+    </dependencies>
 </project>
