@@ -1,0 +1,4 @@
+filter\FiltroCORS.class
+resources\JakartaEE11Resource.class
+config\JakartaRestConfiguration.class
+servlet\FrogsServlet.class

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+   version="6.0">
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <!-- Servlet e Servlet Mapping -->
+    <servlet>
+        <servlet-name>FrogsServlet</servlet-name>
+        <servlet-class>servlet.FrogsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping> 
+        <servlet-name>FrogsServlet</servlet-name>
+        <url-pattern>/api/frogs</url-pattern>
+    </servlet-mapping>
+    <!-- Filter e Filter Mapping -->
+    <filter>
+        <filter-name>FiltroCORS</filter-name>
+        <filter-class>filter.FiltroCORS</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FiltroCORS</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+</web-app>
