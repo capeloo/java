@@ -1,4 +1,7 @@
-filter\FiltroCORS.class
 resources\JakartaEE11Resource.class
+config\Constantes.class
+model\frogs\Frogs.class
 config\JakartaRestConfiguration.class
 servlet\FrogsServlet.class
+filter\FiltroCORS.class
+model\frogs\FrogsDAO.class
