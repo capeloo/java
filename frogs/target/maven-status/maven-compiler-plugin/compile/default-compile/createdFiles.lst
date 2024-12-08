@@ -1,8 +1,7 @@
 resources\JakartaEE11Resource.class
 config\Constantes.class
-servlet\GetAllFrogsServlet.class
 model\frogs\Frogs.class
 config\JakartaRestConfiguration.class
-servlet\GetFrogByIdServlet.class
+servlet\FrogsServlet.class
 filter\FiltroCORS.class
 model\frogs\FrogsDAO.class

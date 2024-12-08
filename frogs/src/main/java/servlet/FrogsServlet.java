@@ -11,8 +11,8 @@ import java.util.List;
 import model.frogs.Frogs;
 import model.frogs.FrogsDAO;
 
-@WebServlet(name = "GetAllFrogsServlet", urlPatterns = {"/api/frogs"})
-public class GetAllFrogsServlet extends HttpServlet {
+@WebServlet(name = "FrogsServlet", urlPatterns = {"/api/frogs"})
+public class FrogsServlet extends HttpServlet {
    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws
