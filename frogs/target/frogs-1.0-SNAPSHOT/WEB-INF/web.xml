@@ -13,9 +13,20 @@
         <servlet-name>FrogsServlet</servlet-name>
         <servlet-class>servlet.FrogsServlet</servlet-class>
     </servlet>
+    
+    <servlet>
+        <servlet-name>FrogIdServlet</servlet-name>
+        <servlet-class>servlet.FrogIdServlet</servlet-class>
+    </servlet>
+    
     <servlet-mapping> 
         <servlet-name>FrogsServlet</servlet-name>
         <url-pattern>/api/frogs</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>FrogIdServlet</servlet-name>
+        <url-pattern>/api/details</url-pattern>
     </servlet-mapping>
     <!-- Filter e Filter Mapping -->
     <filter>

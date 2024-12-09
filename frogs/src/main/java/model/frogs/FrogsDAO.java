@@ -45,4 +45,32 @@ public class FrogsDAO {
         }
         return frogs;
     }
+    
+    public Frogs getFrogById(int id){
+        Frogs frog = new Frogs();
+        
+        try {
+            Class.forName(JDBC_DRIVER);
+            try {
+                Connection con = DriverManager.getConnection(JDBC_URL, JDBC_USUARIO, JDBC_SENHA);
+                PreparedStatement pstmt = con.prepareStatement("SELECT name, photo FROM frogs WHERE id = ?");
+                pstmt.setInt(1, id);
+                try(ResultSet rs = pstmt.executeQuery()){
+                    while(rs.next()){
+                        frog.setName(rs.getString("name"));
+                        frog.setPhoto(rs.getString("photo"));
+                    }
+                    rs.close();
+                }
+                pstmt.close();
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(FrogsDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FrogsDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return frog;
+    }
 }
